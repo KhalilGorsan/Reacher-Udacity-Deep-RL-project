@@ -1,13 +1,13 @@
-import numpy as np
-import random
 import copy
-from collections import namedtuple, deque
+import random
+from collections import deque, namedtuple
 
-from model import Actor, Critic
-
+import numpy as np
 import torch
 import torch.nn.functional as F
 import torch.optim as optim
+
+from model import Actor, Critic
 
 BUFFER_SIZE = int(1e5)  # replay buffer size
 BATCH_SIZE = 128  # minibatch size
