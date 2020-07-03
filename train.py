@@ -10,7 +10,7 @@ from core import ReacherWrapper
 from ddpg_agent import Agent
 
 
-def ddpg(env, agent, n_episodes=1000, max_t=300, print_every=100):
+def ddpg(env, agent, n_episodes=1000, max_t=1000, print_every=100):
     scores_deque = deque(maxlen=print_every)
     scores = []
     for i_episode in range(1, n_episodes + 1):
@@ -33,14 +33,21 @@ def ddpg(env, agent, n_episodes=1000, max_t=300, print_every=100):
             ),
             end="",
         )
-        torch.save(agent.actor_local.state_dict(), "checkpoint_actor.pth")
-        torch.save(agent.critic_local.state_dict(), "checkpoint_critic.pth")
         if i_episode % print_every == 0:
             print(
                 "\rEpisode {}\tAverage Score: {:.2f}".format(
                     i_episode, np.mean(scores_deque)
                 )
             )
+        if np.mean(scores_deque) >= 30.0:
+            print(
+                "\nEnvironment solved in {:d} episodes!\tAverage Score: {:.2f}".format(
+                    i_episode - 100, np.mean(scores_deque)
+                )
+            )
+            torch.save(agent.actor_local.state_dict(), "checkpoint_actor.pth")
+            torch.save(agent.critic_local.state_dict(), "checkpoint_critic.pth")
+            break
     return scores
 
 
