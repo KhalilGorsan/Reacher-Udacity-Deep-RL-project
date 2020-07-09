@@ -10,7 +10,7 @@ from core import ReacherWrapper
 from ddpg_agent import Agent
 
 
-def ddpg(env, agent, n_episodes=500, max_t=1000, print_every=100):
+def ddpg(env, agent, n_episodes=1000, max_t=10000, print_every=100):
     scores_deque = deque(maxlen=print_every)
     scores = []
     for i_episode in range(1, n_episodes + 1):
@@ -58,6 +58,13 @@ def main():
     agent = Agent(state_size=state_size, action_size=action_size, random_seed=10)
 
     scores = ddpg(env, agent)
+
+    fig = plt.figure()
+    ax = fig.add_subplot(111)
+    plt.plot(np.arange(1, len(scores) + 1), scores)
+    plt.ylabel("Scores")
+    plt.xlabel("Episode #")
+    plt.show()
 
 
 if __name__ == "__main__":
