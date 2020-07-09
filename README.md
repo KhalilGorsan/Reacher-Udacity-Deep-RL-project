@@ -54,7 +54,7 @@ The observation space consists of 33 variables corresponding to position, rotati
 
 Training
 --------------------------------------------------------------------------------
-To train you _`ddpg`_ agent on the reacher environment you can run this code
+To train you _`ddpg`_ agent on the reacher environment, you can run this code
 ```bash
 python train.py
 ```
